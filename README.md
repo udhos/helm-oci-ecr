@@ -1,11 +1,24 @@
 # helm-oci-ecr
 
-Recipe to push both:
+Recipe to push both
 
 * docker image
 * helm chart
 
-into a **single** ECR repo.
+into a **single** ECR repo, like this:
+
+```
+image:       aws_account_id.dkr.ecr.region.amazonaws.com/miniapi:1.0.6
+chart: oci://aws_account_id.dkr.ecr.region.amazonaws.com/miniapi --version 1.1.0
+```
+
+We could also use distinct repo names:
+
+| image repo | chart repo | comment |
+| - | - | - |
+| miniapi/image | miniapi | This works, but image repo name is ugly. |
+| miniapi | miniapi-chart | ECR requires the chart name should be `miniapi-chart`, even uglier. |
+| miniapi | miniapi | Distinct tag spaces are required. |
 
 The trick is to use distinct tags.
 
